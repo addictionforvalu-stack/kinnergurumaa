@@ -1,0 +1,6 @@
+{
+  "name": "KinnerGurumaa - Luxury Astrology & Spiritual Consultation",
+  "description": "A premium, modern Vedic astrology and spiritual consultation platform providing personalized Kundli reading, birth chart analysis, relationship compatibility, and career guidance by KinnerGurumaa.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

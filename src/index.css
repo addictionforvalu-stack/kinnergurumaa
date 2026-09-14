@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
+  --font-editorial: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  
+  --color-gold-100: #FAF3E0;
+  --color-gold-200: #F4D58D;
+  --color-gold-300: #F4D58D;
+  --color-gold-400: #D4AF37;
+  --color-gold-500: #D4AF37;
+  --color-gold-600: #B8860B;
+  --color-gold-700: #996515;
+
+  --color-navy-950: #070515;
+  --color-navy-900: #0B0820;
+  --color-navy-850: #15102E;
+  --color-navy-800: #1C153E;
+  --color-navy-700: #251C52;
+
+  --color-purple-950: #070515;
+  --color-purple-900: #0B0820;
+  --color-purple-850: #15102E;
+  --color-purple-800: #1C153E;
+  --color-purple-700: #251C52;
+}
+
+@layer base {
+  * {
+    border-color: rgba(212, 175, 55, 0.25);
+  }
+  
+  body {
+    background-color: #0B0820;
+    color: #F8F3E7;
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-cinzel {
+    font-family: var(--font-serif);
+    letter-spacing: 0.02em;
+  }
+}
+
+/* Custom luxury glass & glow utilities */
+.glass-panel {
+  background: rgba(21, 16, 46, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-panel-hover:hover {
+  border-color: rgba(212, 175, 55, 0.5);
+  box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.7), 0 0 24px -4px rgba(212, 175, 55, 0.2);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #F4D58D 0%, #D4AF37 45%, #B8860B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #F4D58D 0%, #D4AF37 45%, #B8860B 100%);
+}
+
+.gold-border-glow {
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
+}
+
+.gold-glow {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.25);
+}
+
+/* Subtle star background animation */
+@keyframes celestial-drift {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.animate-celestial {
+  animation: celestial-drift 18s ease-in-out infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0820;
+}
+::-webkit-scrollbar-thumb {
+  background: #15102E;
+  border-radius: 4px;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}
