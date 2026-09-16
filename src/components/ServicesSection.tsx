@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SERVICES_DATA } from '../data/astrologyData';
 import { ServiceItem } from '../types';
-import { USER_SERVICE_IMAGES } from '../assets/serviceImages';
+import { USER_SERVICE_IMAGES, PUBLIC_SERVICE_FALLBACKS } from '../assets/serviceImages';
 import { 
   Sparkles, 
   ArrowUpRight, 
@@ -17,25 +17,12 @@ interface ServicesSectionProps {
   currency?: 'USD' | 'INR';
 }
 
-// Fallback image urls in case of any unpredicted loading issue
-const THEMATIC_FALLBACKS: Record<string, string> = {
-  'get-your-ex-love-back': 'https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?auto=format&fit=crop&w=900&q=80',
-  'breakup-problem-solution': 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=80',
-  'intercast-marriage-solution': 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=900&q=80',
-  'divorce-problem-solution': 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=900&q=80',
-  'love-marriage-solution': 'https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=900&q=80',
-  'marriage-problem-solution': 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=900&q=80',
-  'husband-wife-solution': 'https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?auto=format&fit=crop&w=900&q=80',
-  'love-problem-solution': 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=80',
-  'get-your-love-back': 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=80',
-};
-
 export const ServicesSection: React.FC<ServicesSectionProps> = ({
   onSelectService,
   onBookService
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [fallbackApplied, setFallbackApplied] = useState<Record<string, boolean>>({});
+  const [imageErrorState, setImageErrorState] = useState<Record<string, boolean>>({});
 
   const categories = [
     { id: 'all', label: 'All 9 Solutions' },
@@ -100,11 +87,12 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               service.whatsappMessage || `Hello Gurumaa, I want to consult regarding ${service.title}.`
             )}`;
 
-            // Direct user image resolution
+            // Direct user image resolution: prioritizes imported asset, then public fallback, then service.image
             const userImg = USER_SERVICE_IMAGES[service.id];
-            const imgSrc = (!fallbackApplied[service.id] && userImg) 
+            const publicFallback = PUBLIC_SERVICE_FALLBACKS[service.id];
+            const imgSrc = (!imageErrorState[service.id] && userImg) 
               ? userImg 
-              : THEMATIC_FALLBACKS[service.id] || service.image;
+              : (publicFallback || service.image);
 
             return (
               <div
@@ -120,7 +108,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                       alt={service.title}
                       loading="lazy"
                       onError={() => {
-                        setFallbackApplied((prev) => ({ ...prev, [service.id]: true }));
+                        setImageErrorState((prev) => ({ ...prev, [service.id]: true }));
                       }}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
