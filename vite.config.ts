@@ -14,59 +14,19 @@ export default defineConfig(() => {
       react(), 
       tailwindcss(),
       {
-        name: 'save-uploaded-images-api',
+        name: 'serve-service-images',
         configureServer(server) {
-          server.middlewares.use('/api/save-service-images', (req, res) => {
-            if (req.method === 'POST') {
-              let body = '';
-              req.on('data', (chunk) => {
-                body += chunk;
-              });
-              req.on('end', () => {
-                try {
-                  const data = JSON.parse(body);
-                  const servicesDir = path.resolve(__dirname, 'public/services');
-                  if (!fs.existsSync(servicesDir)) {
-                    fs.mkdirSync(servicesDir, { recursive: true });
-                  }
-
-                  const filenameMap: Record<string, string> = {
-                    'get-your-ex-love-back': 'photo_6147413831123146504_y.jpg',
-                    'breakup-problem-solution': 'photo_6147413831123146505_y.jpg',
-                    'intercast-marriage-solution': 'photo_6147413831123146506_y.jpg',
-                    'divorce-problem-solution': 'photo_6147413831123146507_y.jpg',
-                    'love-marriage-solution': 'photo_6147413831123146508_y.jpg',
-                    'marriage-problem-solution': 'photo_6147413831123146509_y.jpg',
-                    'husband-wife-solution': 'photo_6147413831123146510_y.jpg',
-                    'love-problem-solution': 'photo_6147413831123146511_y.jpg',
-                    'get-your-love-back': 'photo_6147413831123146512_y.jpg',
-                  };
-
-                  let savedCount = 0;
-                  for (const [key, dataUrl] of Object.entries(data)) {
-                    if (typeof dataUrl === 'string' && dataUrl.startsWith('data:image')) {
-                      const matches = dataUrl.match(/^data:image\/[a-zA-Z0-9.+_-]+;base64,(.+)$/);
-                      if (matches && matches[1]) {
-                        const buffer = Buffer.from(matches[1], 'base64');
-                        fs.writeFileSync(path.join(servicesDir, `${key}.jpg`), buffer);
-                        if (filenameMap[key]) {
-                          fs.writeFileSync(path.join(servicesDir, filenameMap[key]), buffer);
-                        }
-                        savedCount++;
-                      }
-                    }
-                  }
-                  res.setHeader('Content-Type', 'application/json');
-                  res.end(JSON.stringify({ success: true, saved: savedCount }));
-                } catch (err) {
-                  res.statusCode = 500;
-                  res.end(JSON.stringify({ error: String(err) }));
-                }
-              });
-            } else {
-              res.statusCode = 405;
-              res.end('Method Not Allowed');
+          server.middlewares.use((req, res, next) => {
+            if (req.url && (req.url.startsWith('/services/') || req.url.startsWith('/public/services/'))) {
+              const cleanUrl = req.url.replace(/^\/public/, '').split('?')[0];
+              const filePath = path.join(__dirname, 'public', cleanUrl);
+              if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+                res.setHeader('Content-Type', 'image/jpeg');
+                res.setHeader('Cache-Control', 'public, max-age=86400');
+                return fs.createReadStream(filePath).pipe(res);
+              }
             }
+            next();
           });
         }
       }

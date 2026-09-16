@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { SERVICES_DATA } from '../data/astrologyData';
 import { ServiceItem } from '../types';
+import { USER_SERVICE_IMAGES } from '../assets/serviceImages';
 import { 
   Sparkles, 
   ArrowUpRight, 
@@ -16,9 +17,7 @@ interface ServicesSectionProps {
   currency?: 'USD' | 'INR';
 }
 
-const STORAGE_KEY = 'kinner_gurumaa_custom_services_images';
-
-// Reliable curated fallbacks matching the exact Indian Vedic Astro themes
+// Fallback image urls in case of any unpredicted loading issue
 const THEMATIC_FALLBACKS: Record<string, string> = {
   'get-your-ex-love-back': 'https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?auto=format&fit=crop&w=900&q=80',
   'breakup-problem-solution': 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=80',
@@ -36,31 +35,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
   onBookService
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [customImages, setCustomImages] = useState<Record<string, string>>({});
-  const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
-
-  // Automatically load and persist the user's uploaded images
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
-          setCustomImages(parsed);
-          // Persist images to the server in the background for permanent disk storage
-          fetch('/api/save-service-images', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(parsed),
-          }).catch(() => {
-            // Background sync failure is silent, localStorage still works seamlessly
-          });
-        }
-      }
-    } catch {
-      // Ignore storage errors
-    }
-  }, []);
+  const [fallbackApplied, setFallbackApplied] = useState<Record<string, boolean>>({});
 
   const categories = [
     { id: 'all', label: 'All 9 Solutions' },
@@ -118,23 +93,18 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
           </div>
         </div>
 
-        {/* 9 Services Card Grid matching exact user screenshot design */}
+        {/* 9 Services Card Grid using the exact user-uploaded images */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {filteredServices.map((service) => {
             const waUrl = `https://wa.me/919929936478?text=${encodeURIComponent(
               service.whatsappMessage || `Hello Gurumaa, I want to consult regarding ${service.title}.`
             )}`;
 
-            // Determine image source priority:
-            // 1. User uploaded image from storage
-            // 2. Local public file `/services/${service.originalFilename}`
-            // 3. Curated thematic fallback
-            const isFailed = failedImages[service.id];
-            const imgSrc = customImages[service.id] 
-              ? customImages[service.id]
-              : !isFailed && service.image
-                ? service.image
-                : THEMATIC_FALLBACKS[service.id] || service.image;
+            // Direct user image resolution
+            const userImg = USER_SERVICE_IMAGES[service.id];
+            const imgSrc = (!fallbackApplied[service.id] && userImg) 
+              ? userImg 
+              : THEMATIC_FALLBACKS[service.id] || service.image;
 
             return (
               <div
@@ -149,16 +119,13 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                       src={imgSrc}
                       alt={service.title}
                       loading="lazy"
-                      referrerPolicy="no-referrer"
                       onError={() => {
-                        if (!isFailed) {
-                          setFailedImages((prev) => ({ ...prev, [service.id]: true }));
-                        }
+                        setFallbackApplied((prev) => ({ ...prev, [service.id]: true }));
                       }}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
 
-                    {/* Number Badge (01, 02, ..., 09) as in user screenshots */}
+                    {/* Number Badge (01, 02, ..., 09) matching user design */}
                     <div className="absolute top-3 right-3 bg-black/85 backdrop-blur-xs text-white font-mono text-xs font-bold px-3 py-1 rounded-full shadow-lg border border-white/20 z-10">
                       {service.numberTag}
                     </div>
