@@ -16,7 +16,116 @@ export const TRUST_METRICS = [
   { label: 'Countries Served', value: '25+', subtitle: 'Global clients across 6 continents' },
 ];
 
-export const SERVICES_DATA: ServiceItem[] = [];
+export const SERVICES_DATA: ServiceItem[] = [
+  {
+    id: 'get-your-ex-love-back',
+    numberTag: '01',
+    title: 'Get Your Ex Love Back',
+    sanskritName: 'Prem Punaragaman & Vashikaran Shanti',
+    shortDesc: 'Reignite lost affection, overcome misunderstandings, and spiritually realign planetary energies to reunite with your partner.',
+    image: '/services/photo_6147413831123146504_y.jpg',
+    originalFilename: 'photo_6147413831123146504_y.jpg',
+    popular: true,
+    category: 'love',
+    whatsappMessage: 'Hello Gurumaa, I want to consult regarding Get Your Ex Love Back solution.'
+  },
+  {
+    id: 'breakup-problem-solution',
+    numberTag: '02',
+    title: 'Breakup Problem Solution',
+    sanskritName: 'Sambandh Nivaran & Samjhauta Upay',
+    shortDesc: 'Heal sudden separations, remove toxic third-party influences, and restore heartfelt communication between lovers.',
+    image: '/services/photo_6147413831123146505_y.jpg',
+    originalFilename: 'photo_6147413831123146505_y.jpg',
+    popular: true,
+    category: 'relationship',
+    whatsappMessage: 'Hello Gurumaa, I need astrological consultation for Breakup Problem Solution.'
+  },
+  {
+    id: 'intercast-marriage-solution',
+    numberTag: '03',
+    title: 'Intercast Marriage Solution',
+    sanskritName: 'Vivah Sahmati & Graha Shanti',
+    shortDesc: 'Convince parents and families gracefully, resolve horoscope conflicts, and remove societal hurdles for an auspicious wedding.',
+    image: '/services/photo_6147413831123146506_y.jpg',
+    originalFilename: 'photo_6147413831123146506_y.jpg',
+    popular: true,
+    category: 'marriage',
+    whatsappMessage: 'Hello Gurumaa, I want consultation regarding Intercast Marriage Solution.'
+  },
+  {
+    id: 'divorce-problem-solution',
+    numberTag: '04',
+    title: 'Divorce Problem Solution',
+    sanskritName: 'Dampatya Raksha & Kalash Shanti',
+    shortDesc: 'Stop unwanted divorce proceedings, neutralize malefic 7th and 8th house planetary tensions, and rebuild marital trust.',
+    image: '/services/photo_6147413831123146507_y.jpg',
+    originalFilename: 'photo_6147413831123146507_y.jpg',
+    popular: true,
+    category: 'marriage',
+    whatsappMessage: 'Hello Gurumaa, I need urgent astrological guidance for Divorce Problem Solution.'
+  },
+  {
+    id: 'love-marriage-solution',
+    numberTag: '05',
+    title: 'Love Marriage Solution',
+    sanskritName: 'Prem Vivah Siddhi & Bandhan Nivaran',
+    shortDesc: 'Ensure a smooth union with your beloved through authentic Shukra and Mangal dosha pacification rituals.',
+    image: '/services/photo_6147413831123146508_y.jpg',
+    originalFilename: 'photo_6147413831123146508_y.jpg',
+    popular: true,
+    category: 'love',
+    whatsappMessage: 'Hello Gurumaa, I want to consult for Love Marriage Solution.'
+  },
+  {
+    id: 'marriage-problem-solution',
+    numberTag: '06',
+    title: 'Marriage Problem Solution',
+    sanskritName: 'Vivah Badha Nidan & Sukhad Grihasthi',
+    shortDesc: 'Resolve delayed marriages, repeated match cancellations, in-laws friction, and emotional discord after wedding.',
+    image: '/services/photo_6147413831123146509_y.jpg',
+    originalFilename: 'photo_6147413831123146509_y.jpg',
+    popular: false,
+    category: 'marriage',
+    whatsappMessage: 'Hello Gurumaa, I need consultation for Marriage Problem Solution.'
+  },
+  {
+    id: 'husband-wife-solution',
+    numberTag: '07',
+    title: 'Husband Wife Solution',
+    sanskritName: 'Pati Patni Klesh Nivaran',
+    shortDesc: 'Eradicate daily arguments, lack of intimacy, suspicion, and temper issues between spouses to bring lasting peace home.',
+    image: '/services/photo_6147413831123146510_y.jpg',
+    originalFilename: 'photo_6147413831123146510_y.jpg',
+    popular: true,
+    category: 'relationship',
+    whatsappMessage: 'Hello Gurumaa, I want to discuss Husband Wife Problem Solution.'
+  },
+  {
+    id: 'love-problem-solution',
+    numberTag: '08',
+    title: 'Love Problem Solution',
+    sanskritName: 'Prem Prasang Shanti & Aakarshan Upay',
+    shortDesc: 'Overcome one-sided attraction issues, infidelity anxieties, trust deficits, and bring harmony back to your love life.',
+    image: '/services/photo_6147413831123146511_y.jpg',
+    originalFilename: 'photo_6147413831123146511_y.jpg',
+    popular: false,
+    category: 'love',
+    whatsappMessage: 'Hello Gurumaa, I want consultation regarding Love Problem Solution.'
+  },
+  {
+    id: 'get-your-love-back',
+    numberTag: '09',
+    title: 'Get Your Love Back',
+    sanskritName: 'Punar Milan & Prem Vashikaran',
+    shortDesc: 'Powerful Vedic mantra sadhana and planetary remedies to restore warmth, devotion, and mutual respect with your lover.',
+    image: '/services/photo_6147413831123146512_y.jpg',
+    originalFilename: 'photo_6147413831123146512_y.jpg',
+    popular: true,
+    category: 'love',
+    whatsappMessage: 'Hello Gurumaa, I want to consult for Get Your Love Back.'
+  }
+];
 
 /*
 export const OLD_SERVICES_BACKUP: ServiceItem[] = [

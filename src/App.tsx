@@ -14,6 +14,9 @@ import {
   TrustSection 
 } from './components/TrustSection';
 import { 
+  ServicesSection 
+} from './components/ServicesSection';
+import { 
   HowItWorks 
 } from './components/HowItWorks';
 import { 
@@ -79,7 +82,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B0820] text-[#F8F3E7] font-sans selection:bg-[#D4AF37] selection:text-[#0B0820]">
+    <div className="min-h-screen bg-[#0B0820] text-[#F8F3E7] font-sans selection:bg-[#D4AF37] selection:text-[#0B0820] pb-14 md:pb-0">
       
       {/* Top Universal Navbar */}
       <Navbar
@@ -97,29 +100,35 @@ export default function App() {
         <Hero 
           onOpenInquiry={() => handleOpenInquiry()}
           onBookConsultation={() => handleOpenInquiry()}
-          onExploreServices={() => handleNavigate('how-it-works')}
+          onExploreServices={() => handleNavigate('services')}
         />
 
         {/* 2. Trust & Metrics Section */}
         <TrustSection />
 
-        {/* 3. 4-Step Consultation Journey */}
+        {/* 3. Our Astrology Services Section (9 Solutions matching exact user design with WhatsApp Contact Now) */}
+        <ServicesSection 
+          onSelectService={(serviceId) => handleOpenInquiry(serviceId)}
+          onBookService={(serviceId) => handleOpenInquiry(serviceId)}
+        />
+
+        {/* 4. 4-Step Consultation Journey */}
         <HowItWorks 
           onStartBooking={() => handleOpenInquiry()}
         />
 
-        {/* 4. Why Choose Us (Classical Integrity) */}
+        {/* 5. Why Choose Us (Classical Integrity) */}
         <WhyChooseUs />
 
-        {/* 5. Verified Client Testimonials */}
+        {/* 6. Verified Client Testimonials */}
         <TestimonialsSection />
 
-        {/* 6. Vedic Astrology Insights & Articles */}
+        {/* 7. Vedic Astrology Insights & Articles */}
         <InsightsSection 
           onSelectArticle={(article) => setSelectedArticle(article)}
         />
 
-        {/* 7. Frequently Asked Questions & Concierge Desk */}
+        {/* 8. Frequently Asked Questions & Concierge Desk */}
         <FAQSection />
       </main>
 
@@ -154,7 +163,7 @@ export default function App() {
         }}
       />
 
-      {/* Floating WhatsApp Consultation Button */}
+      {/* Floating WhatsApp on desktop + Call now & WhatsApp sticky bar on mobile */}
       <FloatingWhatsApp />
 
     </div>

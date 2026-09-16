@@ -2,19 +2,23 @@ export type ConsultationType = 'video' | 'audio' | 'chat';
 
 export interface ServiceItem {
   id: string;
+  numberTag: string;
   title: string;
   sanskritName?: string;
   shortDesc: string;
-  fullDesc: string;
-  durationMinutes: number;
-  priceUSD: number;
-  priceINR: number;
+  image: string;
+  originalFilename?: string;
   popular?: boolean;
-  category: 'core' | 'relationships' | 'destiny' | 'annual';
-  iconName: string;
-  highlights: string[];
-  deliverables: string[];
-  sampleQuestions: string[];
+  category?: 'love' | 'marriage' | 'relationship' | 'family' | 'core';
+  whatsappMessage?: string;
+  fullDesc?: string;
+  durationMinutes?: number;
+  priceUSD?: number;
+  priceINR?: number;
+  iconName?: string;
+  highlights?: string[];
+  deliverables?: string[];
+  sampleQuestions?: string[];
 }
 
 export interface Astrologer {

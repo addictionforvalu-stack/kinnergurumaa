@@ -109,6 +109,11 @@ export const Footer: React.FC<FooterProps> = ({
                 </button>
               </li>
               <li>
+                <button onClick={() => onNavigate('services')} className="hover:text-[#F4D58D] transition-colors cursor-pointer text-[#F4D58D] font-medium">
+                  Our Astrology Services
+                </button>
+              </li>
+              <li>
                 <button onClick={() => onNavigate('how-it-works')} className="hover:text-[#F4D58D] transition-colors cursor-pointer">
                   Consultation Process
                 </button>
@@ -144,29 +149,30 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Consultation Focus Areas */}
           <div>
             <h4 className="font-serif text-sm font-bold text-[#F8F3E7] uppercase tracking-wider mb-4">
-              Vedic Guidance
+              Our 9 Solutions
             </h4>
             <ul className="space-y-2.5 text-xs text-[#C8C1B5]">
               {[
-                'Kundli & Janam Patrika Vimarsh',
-                'Marriage & Relationship Compatibility',
-                'Career, Profession & Business Destiny',
-                'Financial Growth & Wealth Muhurta',
-                'Planetary Dosha & Vedic Remedies',
-                'Spiritual Counseling & Life Clarity'
+                { title: 'Get Your Ex Love Back', tag: '01' },
+                { title: 'Breakup Problem Solution', tag: '02' },
+                { title: 'Intercast Marriage Solution', tag: '03' },
+                { title: 'Divorce Problem Solution', tag: '04' },
+                { title: 'Love Marriage Solution', tag: '05' },
+                { title: 'Husband Wife Solution', tag: '07' },
               ].map((item, idx) => (
                 <li key={idx}>
                   <button 
-                    onClick={onBookConsultation} 
-                    className="hover:text-[#F4D58D] transition-colors cursor-pointer text-left line-clamp-1"
+                    onClick={() => onNavigate('services')} 
+                    className="hover:text-[#F4D58D] transition-colors cursor-pointer text-left line-clamp-1 flex items-center gap-2"
                   >
-                    {item}
+                    <span className="font-mono text-[10px] text-[#D4AF37]">{item.tag}</span>
+                    <span>{item.title}</span>
                   </button>
                 </li>
               ))}
               <li>
-                <button onClick={onBookConsultation} className="text-[#D4AF37] hover:underline font-medium">
-                  Connect for Consultation →
+                <button onClick={() => onNavigate('services')} className="text-[#D4AF37] hover:underline font-medium flex items-center gap-1 mt-1">
+                  <span>View All 9 Solutions →</span>
                 </button>
               </li>
             </ul>

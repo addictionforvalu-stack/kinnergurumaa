@@ -99,11 +99,11 @@ export const Hero: React.FC<HeroProps> = ({
               </a>
 
               <button
-                id="hero-explore-process-btn"
+                id="hero-explore-services-btn"
                 onClick={onExploreServices}
                 className="w-full sm:w-auto px-6 py-4 rounded-xl bg-[#15102E] border border-[#D4AF37]/25 text-[#F8F3E7] hover:text-[#F4D58D] hover:border-[#D4AF37]/50 text-sm sm:text-base font-medium transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm"
               >
-                <span>Consultation Process</span>
+                <span>Explore Our Services</span>
                 <Compass className="w-4 h-4 text-[#D4AF37]" />
               </button>
             </div>
