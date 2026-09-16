@@ -14,20 +14,11 @@ import {
   TrustSection 
 } from './components/TrustSection';
 import { 
-  ServicesSection 
-} from './components/ServicesSection';
-import { 
-  FeaturedConsultation 
-} from './components/FeaturedConsultation';
-import { 
   HowItWorks 
 } from './components/HowItWorks';
 import { 
   WhyChooseUs 
 } from './components/WhyChooseUs';
-import { 
-  AstrologerSection 
-} from './components/AstrologerSection';
 import { 
   TestimonialsSection 
 } from './components/TestimonialsSection';
@@ -41,14 +32,8 @@ import {
   Footer 
 } from './components/Footer';
 import { 
-  BookingFlowModal 
-} from './components/BookingFlowModal';
-import { 
-  DashboardView 
-} from './components/DashboardView';
-import { 
-  AuthModal 
-} from './components/AuthModal';
+  ConsultationInquiryModal 
+} from './components/ConsultationInquiryModal';
 import { 
   LegalModal 
 } from './components/LegalModal';
@@ -60,74 +45,37 @@ import {
 } from './components/FloatingWhatsApp';
 
 import { 
-  DEMO_USER, 
-  INITIAL_BOOKINGS 
-} from './data/astrologyData';
-import { 
-  UserProfile, 
-  BookingData, 
   BlogPost 
 } from './types';
 
 export default function App() {
-  // Navigation View: 'home' | 'dashboard'
-  const [currentView, setCurrentView] = useState<'home' | 'dashboard'>('home');
+  // Navigation active tab
+  const [activeSection, setActiveSection] = useState<string>('home');
   
-  // Currency Toggle: USD | INR
-  const [currency, setCurrency] = useState<'USD' | 'INR'>('USD');
-  
-  // User Session: initialized with DEMO_USER for smooth immediate evaluation
-  const [currentUser, setCurrentUser] = useState<UserProfile | null>(DEMO_USER);
-  
-  // Bookings state (allows creating new bookings in-session)
-  const [bookings, setBookings] = useState<BookingData[]>(INITIAL_BOOKINGS);
-
-  // Modals
-  const [isBookingOpen, setIsBookingOpen] = useState(false);
+  // Modals state
+  const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const [preselectedServiceId, setPreselectedServiceId] = useState<string | undefined>();
-  const [preselectedAstrologerId, setPreselectedAstrologerId] = useState<string | undefined>();
   
-  const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [legalModalType, setLegalModalType] = useState<'privacy' | 'terms' | 'refund' | 'disclaimer' | null>(null);
   const [selectedArticle, setSelectedArticle] = useState<BlogPost | null>(null);
 
   // Handlers
-  const handleOpenBooking = (serviceId?: string, astrologerId?: string) => {
+  const handleOpenInquiry = (serviceId?: string) => {
     setPreselectedServiceId(serviceId);
-    setPreselectedAstrologerId(astrologerId);
-    setIsBookingOpen(true);
-  };
-
-  const handleBookingSuccess = (newBooking: BookingData) => {
-    setBookings([newBooking, ...bookings]);
-  };
-
-  const handleUpdateProfile = (updated: UserProfile) => {
-    setCurrentUser(updated);
+    setIsInquiryOpen(true);
   };
 
   const handleNavigate = (target: string) => {
-    if (target === 'dashboard') {
-      setCurrentView('dashboard');
+    setActiveSection(target);
+    if (target === 'home') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 
-    if (currentView !== 'home') {
-      setCurrentView('home');
+    const elem = document.getElementById(`${target}-section`);
+    if (elem) {
+      elem.scrollIntoView({ behavior: 'smooth' });
     }
-
-    // Scroll to anchor on home page
-    setTimeout(() => {
-      if (target === 'home') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        const elem = document.getElementById(`${target}-section`);
-        if (elem) {
-          elem.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-    }, 50);
   };
 
   return (
@@ -135,116 +83,58 @@ export default function App() {
       
       {/* Top Universal Navbar */}
       <Navbar
-        currentView={currentView}
-        setCurrentView={handleNavigate}
+        currentView={activeSection}
         onNavigate={handleNavigate}
-        currency={currency}
-        setCurrency={setCurrency}
-        onToggleCurrency={() => setCurrency(prev => prev === 'USD' ? 'INR' : 'USD')}
-        currentUser={currentUser}
-        onOpenAuth={() => setIsAuthOpen(true)}
-        onLogout={() => setCurrentUser(null)}
-        onBookNow={() => handleOpenBooking()}
-        onOpenBooking={(serviceId) => handleOpenBooking(serviceId)}
+        setCurrentView={handleNavigate}
+        onOpenInquiry={handleOpenInquiry}
+        onBookNow={handleOpenInquiry}
+        onOpenBooking={handleOpenInquiry}
       />
 
-      {/* Main View Router */}
-      {currentView === 'home' ? (
-        <main>
-          {/* 1. Hero Section */}
-          <Hero 
-            onBookConsultation={() => handleOpenBooking()}
-            onExploreServices={() => handleNavigate('services')}
-            onOpenBirthChart={() => {
-              if (currentUser) {
-                setCurrentView('dashboard');
-              } else {
-                handleOpenBooking('janam-kundli-analysis');
-              }
-            }}
-          />
-
-          {/* 2. Trust & Metrics Section */}
-          <TrustSection />
-
-          {/* 3. Filterable 8-Service Catalog */}
-          <ServicesSection 
-            currency={currency}
-            onSelectService={(serviceId) => handleOpenBooking(serviceId)}
-          />
-
-          {/* 4. Featured Spotlight Consultation */}
-          <FeaturedConsultation 
-            currency={currency}
-            onBookFeatured={(serviceId) => handleOpenBooking(serviceId)}
-          />
-
-          {/* 5. 4-Step Consultation Journey */}
-          <HowItWorks 
-            onStartJourney={() => handleOpenBooking()}
-          />
-
-          {/* 6. Why Choose Us (Classical Integrity) */}
-          <WhyChooseUs />
-
-          {/* 7. Meet Your Astrologers & Lineage Scholars */}
-          <AstrologerSection 
-            currency={currency}
-            onSelectAstrologerForBooking={(astrologerId) => handleOpenBooking(undefined, astrologerId)}
-          />
-
-          {/* 8. Verified Testimonials Carousel */}
-          <TestimonialsSection />
-
-          {/* 9. Vedic Astrology Insights & Blog */}
-          <InsightsSection 
-            onSelectArticle={(article) => setSelectedArticle(article)}
-          />
-
-          {/* 10. Frequently Asked Questions Accordion & Direct Contact */}
-          <FAQSection />
-        </main>
-      ) : (
-        /* Dedicated Customer Dashboard */
-        <DashboardView
-          currentUser={currentUser || DEMO_USER}
-          bookings={bookings}
-          onBookNewSession={() => handleOpenBooking()}
-          onUpdateProfile={handleUpdateProfile}
-          currency={currency}
-          onBackToHome={() => handleNavigate('home')}
+      {/* Main Classical Vedic Astrology Showcase */}
+      <main>
+        {/* 1. Hero Section */}
+        <Hero 
+          onOpenInquiry={() => handleOpenInquiry()}
+          onBookConsultation={() => handleOpenInquiry()}
+          onExploreServices={() => handleNavigate('how-it-works')}
         />
-      )}
 
-      {/* Universal Footer with Mandatory Disclaimer */}
+        {/* 2. Trust & Metrics Section */}
+        <TrustSection />
+
+        {/* 3. 4-Step Consultation Journey */}
+        <HowItWorks 
+          onStartBooking={() => handleOpenInquiry()}
+        />
+
+        {/* 4. Why Choose Us (Classical Integrity) */}
+        <WhyChooseUs />
+
+        {/* 5. Verified Client Testimonials */}
+        <TestimonialsSection />
+
+        {/* 6. Vedic Astrology Insights & Articles */}
+        <InsightsSection 
+          onSelectArticle={(article) => setSelectedArticle(article)}
+        />
+
+        {/* 7. Frequently Asked Questions & Concierge Desk */}
+        <FAQSection />
+      </main>
+
+      {/* Universal Footer */}
       <Footer
         onNavigate={handleNavigate}
         onOpenLegal={(type) => setLegalModalType(type)}
-        onBookConsultation={() => handleOpenBooking()}
+        onBookConsultation={() => handleOpenInquiry()}
       />
 
-      {/* 8-Step Interactive Booking Flow Wizard Modal */}
-      <BookingFlowModal
-        isOpen={isBookingOpen}
-        onClose={() => setIsBookingOpen(false)}
+      {/* Simple Consultation Inquiry Modal */}
+      <ConsultationInquiryModal
+        isOpen={isInquiryOpen}
+        onClose={() => setIsInquiryOpen(false)}
         preselectedServiceId={preselectedServiceId}
-        preselectedAstrologerId={preselectedAstrologerId}
-        currency={currency}
-        currentUser={currentUser}
-        onBookingSuccess={handleBookingSuccess}
-        onGoToDashboard={() => {
-          setCurrentView('dashboard');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
-      />
-
-      {/* Authentication Modal */}
-      <AuthModal
-        isOpen={isAuthOpen}
-        onClose={() => setIsAuthOpen(false)}
-        onLoginSuccess={(user) => {
-          setCurrentUser(user);
-        }}
       />
 
       {/* Legal & Astrology Disclaimer Modal */}
@@ -260,11 +150,11 @@ export default function App() {
         onClose={() => setSelectedArticle(null)}
         onBookConsultation={() => {
           setSelectedArticle(null);
-          handleOpenBooking();
+          handleOpenInquiry();
         }}
       />
 
-      {/* Floating Premium WhatsApp Consultation Button */}
+      {/* Floating WhatsApp Consultation Button */}
       <FloatingWhatsApp />
 
     </div>

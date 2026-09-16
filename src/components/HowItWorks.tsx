@@ -23,17 +23,17 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onStartBooking }) => {
     },
     {
       num: '03',
-      title: 'Meet Your Astrologer',
-      desc: 'Connect via private high-definition video or audio call. Walk through your Kundli, divisional charts, and active Dasha transits without rush.',
+      title: 'One-on-One Consultation',
+      desc: 'Connect via private audio call, WhatsApp, or video session. Walk through your Kundli, planetary alignments, and active Dasha transits without rush.',
       icon: <Video className="w-6 h-6 text-[#D4AF37]" />,
-      actionNote: 'Live screen sharing of your chart'
+      actionNote: 'Unhurried personal guidance'
     },
     {
       num: '04',
-      title: 'Receive Personalized Guidance',
-      desc: 'Get your customized 24-page PDF dossier, full session audio recording, tailored Vedic remedies, and 14 days of direct follow-up access.',
+      title: 'Receive Remedies & Guidance',
+      desc: 'Get tailored Vedic remedies, astrological analysis, practical advice, mantra recommendations, and clarity on your life decisions.',
       icon: <Award className="w-6 h-6 text-[#D4AF37]" />,
-      actionNote: 'Saved directly to your dashboard'
+      actionNote: 'Authentic Parashari remedies'
     }
   ];
 
@@ -112,7 +112,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onStartBooking }) => {
             onClick={onStartBooking}
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#F4D58D] via-[#D4AF37] to-[#B8860B] text-[#0B0820] text-sm font-bold shadow-lg shadow-[#D4AF37]/20 hover:shadow-xl hover:shadow-[#D4AF37]/35 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
           >
-            <span>Begin Your Consultation Booking</span>
+            <span>Inquire for Consultation</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>

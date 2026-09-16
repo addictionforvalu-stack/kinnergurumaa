@@ -16,7 +16,10 @@ export const TRUST_METRICS = [
   { label: 'Countries Served', value: '25+', subtitle: 'Global clients across 6 continents' },
 ];
 
-export const SERVICES_DATA: ServiceItem[] = [
+export const SERVICES_DATA: ServiceItem[] = [];
+
+/*
+export const OLD_SERVICES_BACKUP: ServiceItem[] = [
   {
     id: 'birth-chart-analysis',
     title: 'Birth Chart Analysis',
@@ -251,6 +254,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     ]
   }
 ];
+*/
 
 export const ASTROLOGERS_DATA: Astrologer[] = [
   {

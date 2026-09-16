@@ -129,8 +129,8 @@ export const FeaturedConsultation: React.FC<FeaturedConsultationProps> = ({
                     '12 Houses, D9 Navamsha & D10 Dashamsha review',
                     '3-Year Vimshottari Mahadasha roadmap',
                     'Remedies: Vedic Mantras, Gemstones, Charitable Muhurtas',
-                    'HD Audio & Video recording saved to your dashboard',
-                    'Full 100% satisfaction or complimentary re-session'
+                    'Direct one-on-one session via Phone or Video Call',
+                    '100% Confidential & Authentic Vedic Guidance'
                   ].map((item, idx) => (
                     <div key={idx} className="flex items-center gap-2.5 text-xs text-[#C8C1B5]">
                       <CheckCircle className="w-4 h-4 text-[#D4AF37] shrink-0" />
@@ -140,20 +140,32 @@ export const FeaturedConsultation: React.FC<FeaturedConsultationProps> = ({
                 </div>
 
                 {/* Big CTA */}
-                <button
-                  id="featured-book-session-btn"
-                  onClick={handleBooking}
-                  className="w-full py-4 rounded-xl bg-gradient-to-r from-[#F4D58D] via-[#D4AF37] to-[#B8860B] text-[#0B0820] font-bold text-sm tracking-wide shadow-xl shadow-[#D4AF37]/25 hover:shadow-2xl hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer flex items-center justify-center gap-2"
-                >
-                  <Calendar className="w-4 h-4" />
-                  <span>Book Your Session</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
+                <div className="space-y-3">
+                  <button
+                    id="featured-book-session-btn"
+                    onClick={handleBooking}
+                    className="w-full py-4 rounded-xl bg-gradient-to-r from-[#F4D58D] via-[#D4AF37] to-[#B8860B] text-[#0B0820] font-bold text-sm tracking-wide shadow-xl shadow-[#D4AF37]/25 hover:shadow-2xl hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer flex items-center justify-center gap-2"
+                  >
+                    <Calendar className="w-4 h-4" />
+                    <span>Inquire for Comprehensive Kundli Session</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+
+                  <a
+                    id="featured-whatsapp-btn"
+                    href="https://wa.me/919929936478?text=Hello%20KinnerGurumaa%2C%20I%20am%20interested%20in%20the%20Comprehensive%20Kundli%20Vimarsh%20Consultation."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3.5 rounded-xl bg-[#25D366]/20 border border-[#25D366]/40 hover:bg-[#25D366]/30 text-[#25D366] font-bold text-xs tracking-wide transition-all cursor-pointer flex items-center justify-center gap-2"
+                  >
+                    <span>Connect via WhatsApp (+91 99299 36478)</span>
+                  </a>
+                </div>
 
                 {/* Security Tag */}
                 <div className="mt-4 flex items-center justify-center gap-2 text-[11px] text-[#C8C1B5]/70">
                   <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37]" />
-                  <span>Encrypted 256-bit Booking • Flexible Rescheduling</span>
+                  <span>100% Confidential • Direct Guidance by KinnerGurumaa</span>
                 </div>
 
               </div>

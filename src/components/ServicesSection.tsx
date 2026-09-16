@@ -188,7 +188,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                     onClick={() => handleBookingClick(service.id)}
                     className="w-full py-2.5 px-2 rounded-xl bg-gradient-to-r from-[#F4D58D] via-[#D4AF37] to-[#B8860B] text-[#0B0820] text-xs font-bold hover:shadow-lg hover:shadow-[#D4AF37]/25 transition-all text-center cursor-pointer flex items-center justify-center gap-1"
                   >
-                    <span>Book Now</span>
+                    <span>Consult Now</span>
                     <ChevronRight className="w-3.5 h-3.5" />
                   </button>
                 </div>

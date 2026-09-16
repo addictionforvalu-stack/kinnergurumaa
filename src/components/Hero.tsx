@@ -8,19 +8,36 @@ import {
   Star, 
   CheckCircle2, 
   Moon, 
-  Sun 
+  Sun,
+  Phone,
+  MessageCircle
 } from 'lucide-react';
 
 interface HeroProps {
-  onOpenBooking: () => void;
+  onOpenBooking?: () => void;
+  onOpenInquiry?: () => void;
   onExploreServices: () => void;
   onLearnMore?: () => void;
+  onOpenBirthChart?: () => void;
+  onBookConsultation?: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({
   onOpenBooking,
-  onExploreServices
+  onOpenInquiry,
+  onExploreServices,
+  onBookConsultation
 }) => {
+  const handleInquiry = () => {
+    if (onOpenInquiry) {
+      onOpenInquiry();
+    } else if (onOpenBooking) {
+      onOpenBooking();
+    } else if (onBookConsultation) {
+      onBookConsultation();
+    }
+  };
+
   return (
     <section 
       id="hero-section"
@@ -59,25 +76,45 @@ export const Hero: React.FC<HeroProps> = ({
             </p>
 
             {/* Primary & Secondary Action CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-8">
               <button
-                id="hero-book-consultation-btn"
-                onClick={onOpenBooking}
+                id="hero-inquire-consultation-btn"
+                onClick={handleInquiry}
                 className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-[#F4D58D] via-[#D4AF37] to-[#B8860B] text-[#0B0820] font-bold text-sm sm:text-base tracking-wide shadow-xl shadow-[#D4AF37]/25 hover:shadow-2xl hover:shadow-[#D4AF37]/40 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer flex items-center justify-center gap-2.5"
               >
                 <Calendar className="w-4 h-4 text-[#0B0820]" />
-                <span>Book a Consultation</span>
+                <span>Consult Gurumaa / Inquire</span>
                 <ArrowRight className="w-4 h-4 text-[#0B0820]" />
               </button>
 
-              <button
-                id="hero-explore-services-btn"
-                onClick={onExploreServices}
-                className="w-full sm:w-auto px-7 py-4 rounded-xl bg-[#15102E] border border-[#D4AF37]/25 text-[#F8F3E7] hover:text-[#F4D58D] hover:border-[#D4AF37]/50 text-sm sm:text-base font-medium transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm"
+              <a
+                id="hero-whatsapp-btn"
+                href="https://wa.me/919929936478?text=Hello%20KinnerGurumaa%2C%20I%20would%20like%20to%20consult%20regarding%20Vedic%20Astrology."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto px-6 py-4 rounded-xl bg-[#25D366]/20 border border-[#25D366]/40 hover:bg-[#25D366]/30 text-[#25D366] text-sm sm:text-base font-semibold transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm"
               >
-                <span>Explore Services</span>
+                <MessageCircle className="w-4 h-4" />
+                <span>Chat on WhatsApp</span>
+              </a>
+
+              <button
+                id="hero-explore-process-btn"
+                onClick={onExploreServices}
+                className="w-full sm:w-auto px-6 py-4 rounded-xl bg-[#15102E] border border-[#D4AF37]/25 text-[#F8F3E7] hover:text-[#F4D58D] hover:border-[#D4AF37]/50 text-sm sm:text-base font-medium transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm"
+              >
+                <span>Consultation Process</span>
                 <Compass className="w-4 h-4 text-[#D4AF37]" />
               </button>
+            </div>
+
+            {/* Helpline bar */}
+            <div className="mb-8 inline-flex items-center gap-3 px-4 py-2 rounded-xl bg-[#15102E] border border-[#D4AF37]/20 text-xs text-[#C8C1B5]">
+              <Phone className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <span>Direct Astrology Helpline:</span>
+              <a href="tel:+919929936478" className="font-bold text-[#F4D58D] hover:underline">
+                +91 99299 36478
+              </a>
             </div>
 
             {/* Trust Assurance Checklist */}

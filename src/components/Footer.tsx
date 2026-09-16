@@ -10,7 +10,6 @@ import {
   Clock,
   MessageCircle
 } from 'lucide-react';
-import { SERVICES_DATA } from '../data/astrologyData';
 
 interface FooterProps {
   onNavigate: (view: string) => void;
@@ -110,18 +109,13 @@ export const Footer: React.FC<FooterProps> = ({
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('services')} className="hover:text-[#F4D58D] transition-colors cursor-pointer">
-                  All 8 Consultations
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('astrologers')} className="hover:text-[#F4D58D] transition-colors cursor-pointer">
-                  Meet Our Acharyas
-                </button>
-              </li>
-              <li>
                 <button onClick={() => onNavigate('how-it-works')} className="hover:text-[#F4D58D] transition-colors cursor-pointer">
-                  4-Step Methodology
+                  Consultation Process
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('why-choose-us')} className="hover:text-[#F4D58D] transition-colors cursor-pointer">
+                  Why Choose Us
                 </button>
               </li>
               <li>
@@ -141,31 +135,38 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button onClick={() => onNavigate('contact')} className="hover:text-[#F4D58D] transition-colors cursor-pointer">
-                  Contact & Concierge
+                  Contact & Helpline
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Services Links */}
+          {/* Consultation Focus Areas */}
           <div>
             <h4 className="font-serif text-sm font-bold text-[#F8F3E7] uppercase tracking-wider mb-4">
-              Consultations
+              Vedic Guidance
             </h4>
             <ul className="space-y-2.5 text-xs text-[#C8C1B5]">
-              {SERVICES_DATA.slice(0, 6).map((service) => (
-                <li key={service.id}>
+              {[
+                'Kundli & Janam Patrika Vimarsh',
+                'Marriage & Relationship Compatibility',
+                'Career, Profession & Business Destiny',
+                'Financial Growth & Wealth Muhurta',
+                'Planetary Dosha & Vedic Remedies',
+                'Spiritual Counseling & Life Clarity'
+              ].map((item, idx) => (
+                <li key={idx}>
                   <button 
                     onClick={onBookConsultation} 
                     className="hover:text-[#F4D58D] transition-colors cursor-pointer text-left line-clamp-1"
                   >
-                    {service.title}
+                    {item}
                   </button>
                 </li>
               ))}
               <li>
-                <button onClick={() => onNavigate('services')} className="text-[#D4AF37] hover:underline font-medium">
-                  View All Services →
+                <button onClick={onBookConsultation} className="text-[#D4AF37] hover:underline font-medium">
+                  Connect for Consultation →
                 </button>
               </li>
             </ul>
